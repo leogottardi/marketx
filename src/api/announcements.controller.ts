@@ -1,28 +1,28 @@
 import { Controller, Post, Body, Get, Param, Delete } from '@nestjs/common';
-import { AnnouncementService } from 'src/app/announcements/announcement.service';
-import { ICreateAnnouncementDTO } from 'src/domain/announcement/dto/create-announcement.dto';
+import { AnnouncementsService } from 'src/app/announcements/announcements.service';
+import { ICreateAnnouncementProductsDTO } from 'src/domain/announcement/dto/create-announcement-products.dto';
 
 @Controller('announcements')
 export class AnnouncementsController {
-  constructor(private readonly announcementService: AnnouncementService) {}
+  constructor(private readonly announcementsService: AnnouncementsService) {}
 
   @Post()
-  create(@Body() createAnnouncementDto: ICreateAnnouncementDTO) {
-    return this.announcementService.create(createAnnouncementDto);
+  create(@Body() data: ICreateAnnouncementProductsDTO) {
+    return this.announcementsService.create(data);
   }
 
   @Get('/:id')
   find(@Param('id') id: string) {
-    return this.announcementService.find(id);
+    return this.announcementsService.find(id);
   }
 
   @Get()
   findAll() {
-    return this.announcementService.findAll();
+    return this.announcementsService.findAll();
   }
 
   @Delete('/:id')
   delete(@Param('id') id: string) {
-    return this.announcementService.delete(id);
+    return this.announcementsService.delete(id);
   }
 }

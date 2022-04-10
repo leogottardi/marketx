@@ -1,13 +1,19 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AnnouncementService } from 'src/app/announcements/announcement.service';
+import { AnnouncementsService } from 'src/app/announcements/announcements.service';
 import { Announcement } from 'src/domain/announcement/entities/announcement.entity';
-import { AnnouncementRepository } from 'src/infra/data/mysql/repository/implementations/Announcement.repository';
+import { Product } from 'src/domain/product/entities/product.entity';
+import { AnnouncementsRepository } from 'src/infra/data/mysql/repository/implementations/announcements.repository';
+import { ProductsRepository } from 'src/infra/data/mysql/repository/implementations/products.repository';
 import { AnnouncementsController } from './announcements.controller';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Announcement])],
+  imports: [TypeOrmModule.forFeature([Announcement, Product])],
   controllers: [AnnouncementsController],
-  providers: [AnnouncementService, AnnouncementRepository],
+  providers: [
+    AnnouncementsService,
+    AnnouncementsRepository,
+    ProductsRepository,
+  ],
 })
 export class AnnouncementsModule {}

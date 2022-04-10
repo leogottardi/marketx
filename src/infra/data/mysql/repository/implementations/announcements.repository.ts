@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { Announcement } from 'src/domain/announcement/entities/announcement.entity';
-import { IAnnouncementRepository } from '../IAnnouncement.repository';
-import { ICreateAnnouncementDTO } from 'src/domain/announcement/dto/create-announcement.dto';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { IAnnouncementsRepository } from '../IAnnouncementsRepository';
+import { ICreateAnnouncementDTO } from 'src/domain/announcement/dto/create-announcement.dto';
 
 @Injectable()
-class AnnouncementRepository implements IAnnouncementRepository {
+class AnnouncementsRepository implements IAnnouncementsRepository {
   constructor(
     @InjectRepository(Announcement)
     private announcementRepository: Repository<Announcement>,
@@ -35,4 +35,4 @@ class AnnouncementRepository implements IAnnouncementRepository {
   }
 }
 
-export { AnnouncementRepository };
+export { AnnouncementsRepository };

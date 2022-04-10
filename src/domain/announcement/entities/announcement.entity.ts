@@ -1,5 +1,14 @@
 import { randomUUID } from 'crypto';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Product } from 'src/domain/product/entities/product.entity';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinTable,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity('announcements')
 export class Announcement {
@@ -11,6 +20,15 @@ export class Announcement {
 
   @Column()
   description: string;
+
+  @OneToMany(() => Product, (product) => product.announcement)
+  products: Product[];
+
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
 
   constructor() {
     if (!this.id) {
