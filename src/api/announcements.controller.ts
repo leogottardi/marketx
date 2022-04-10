@@ -3,7 +3,7 @@ import { AnnouncementService } from 'src/app/announcements/announcement.service'
 import { ICreateAnnouncementDTO } from 'src/domain/announcement/dto/create-announcement.dto';
 
 @Controller('announcements')
-export class AnnouncementController {
+export class AnnouncementsController {
   constructor(private readonly announcementService: AnnouncementService) {}
 
   @Post()

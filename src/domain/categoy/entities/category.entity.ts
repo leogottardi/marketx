@@ -1,8 +1,8 @@
 import { randomUUID } from 'crypto';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('announcements')
-export class Announcement {
+@Entity('categories')
+export class Category {
   @PrimaryGeneratedColumn()
   id: string;
 

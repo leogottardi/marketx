@@ -1,15 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { Announcement } from 'src/domain/announcement/entities/announcement.entity';
 import { ICreateAnnouncementDTO } from 'src/domain/announcement/dto/create-announcement.dto';
-import { Repository } from 'typeorm';
-import { InjectRepository } from '@nestjs/typeorm';
+import { AnnouncementRepository } from 'src/infra/data/mysql/repository/implementations/Announcement.repository';
 
 @Injectable()
-export class AnnouncementService {
-  constructor(
-    @InjectRepository(Announcement)
-    private announcementRepository: Repository<Announcement>,
-  ) {}
+export class AnnouncementsService {
+  constructor(private announcementRepository: AnnouncementRepository) {}
 
   async create(
     createAnnouncementDto: ICreateAnnouncementDTO,
@@ -17,18 +13,19 @@ export class AnnouncementService {
     const announcement = this.announcementRepository.create(
       createAnnouncementDto,
     );
-    return this.announcementRepository.save(announcement);
+
+    return announcement;
   }
 
   async find(id: string): Promise<Announcement> {
-    return this.announcementRepository.findOne({ id });
+    return this.announcementRepository.find(id);
   }
 
   async findAll(): Promise<Announcement[]> {
-    return this.announcementRepository.find();
+    return this.announcementRepository.findAll();
   }
 
   async delete(id: string): Promise<any> {
-    return this.announcementRepository.delete({ id });
+    return this.announcementRepository.delete(id);
   }
 }
