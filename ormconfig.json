@@ -6,8 +6,8 @@
   "password": "mysql",
   "database": "marketx",
   "entities": ["dist/domain/**/entities/*.entity{.ts,.js}"],
-  "migrations": ["src/infra/data/mysql/migrations/*.ts"],
+  "migrations": ["dist/infra/data/mysql/migrations/*.ts"],
   "cli": {
-    "migrationsDir": "src/infra/data/mysql/migrations"
+    "migrationsDir": "dist/infra/data/mysql/migrations"
   }
 }
