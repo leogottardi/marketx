@@ -20,9 +20,10 @@ export class AnnouncementsService {
     });
 
     for (let i = 0; i < products.length; i++) {
-      Object.assign(products[i], { announcement_id: announcement.id });
-
-      await this.productsRepository.create(products[i]);
+      await this.productsRepository.create({
+        ...products[i],
+        announcement_id: announcement.id,
+      });
     }
 
     return announcement;
