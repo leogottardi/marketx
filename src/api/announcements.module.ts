@@ -12,8 +12,14 @@ import { AnnouncementsController } from './announcements.controller';
   controllers: [AnnouncementsController],
   providers: [
     AnnouncementsService,
-    AnnouncementsRepository,
-    ProductsRepository,
+    {
+      provide: 'AnnouncementsRepository',
+      useClass: AnnouncementsRepository,
+    },
+    {
+      provide: 'ProductsRepository',
+      useClass: ProductsRepository,
+    },
   ],
 })
 export class AnnouncementsModule {}

@@ -1,14 +1,16 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { Announcement } from 'src/domain/announcement/entities/announcement.entity';
 import { ICreateAnnouncementProductsDTO } from 'src/domain/announcement/dto/create-announcement-products.dto';
-import { AnnouncementsRepository } from 'src/infra/data/mysql/repository/implementations/announcements.repository';
-import { ProductsRepository } from 'src/infra/data/mysql/repository/implementations/products.repository';
+import { IAnnouncementsRepository } from 'src/infra/data/mysql/repository/IAnnouncementsRepository';
+import { IProductsRepository } from 'src/infra/data/mysql/repository/IProductsRepository';
 
 @Injectable()
 export class AnnouncementsService {
   constructor(
-    private announcementsRepository: AnnouncementsRepository,
-    private productsRepository: ProductsRepository,
+    @Inject('AnnouncementsRepository')
+    private announcementsRepository: IAnnouncementsRepository,
+    @Inject('ProductsRepository')
+    private productsRepository: IProductsRepository,
   ) {}
 
   async create(data: ICreateAnnouncementProductsDTO): Promise<Announcement> {
@@ -20,10 +22,8 @@ export class AnnouncementsService {
     });
 
     for (let i = 0; i < products.length; i++) {
-      await this.productsRepository.create({
-        ...products[i],
-        announcement_id: announcement.id,
-      });
+      Object.assign(products[i], { announcementId: announcement.id });
+      await this.productsRepository.create(products[i]);
     }
 
     return announcement;
