@@ -4,6 +4,7 @@ import { User } from 'src/domain/user/entities/user.entity';
 import { Repository } from 'typeorm';
 import { IUsersRepository } from '../IUsersRepository';
 
+
 export class UsersRepository implements IUsersRepository {
   constructor(
     @InjectRepository(User)
@@ -14,5 +15,9 @@ export class UsersRepository implements IUsersRepository {
     const user = this.repository.create(data);
 
     return await this.repository.save(user);
+  }
+
+  async findByEmail(email: string): Promise<User> {
+    return this.repository.findOne({ email });
   }
 }
