@@ -18,6 +18,7 @@ export class CreateUsers1649693441072 implements MigrationInterface {
           {
             name: 'email',
             type: 'varchar',
+            isUnique: true,
           },
           {
             name: 'password',
@@ -26,6 +27,7 @@ export class CreateUsers1649693441072 implements MigrationInterface {
           {
             name: 'cpf',
             type: 'varchar',
+            isUnique: true,
           },
           {
             name: 'created_at',
